@@ -1,0 +1,156 @@
+<?php 
+require_once('cabecalho.php'); 
+require_once 'classes/Produto.php';
+	
+	$computador= new Produto();
+	$computador->id = $_GET['id'];
+	$listacomputador = $computador->listar();
+	
+			foreach ($listacomputador as $linha){
+				
+					if($computador->id==$linha['id']){
+						$computador->modelo = $linha['modelo'];
+						$computador->fabricante = $linha['fabricante'];
+						$computador->valor = $linha['valor'];
+						$computador->memoria = $linha['memoria'];
+						$computador->processador = $linha['processador'];
+						$computador->armazenamento = $linha['armazenamento'];
+						$computador->sistema = $linha['sistema'];
+						$computador->tela = $linha['tela'];
+					}	
+			}					
+?>	 
+
+<?php if(array_key_exists('salvo',$_GET) && $_GET['salvo']==1){ ?>
+		
+<script>
+
+$(document).ready(function() {
+    $('#modelo').modal('show');
+})
+</script>		
+	
+		
+<!-- Modal -->
+<div class="modal fade" id="modelo" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TituloModalCentralizado">Mensagem</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-success">
+      Dados armazenados com sucesso.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+		
+<?php } else if((array_key_exists('salvo',$_GET) && $_GET['salvo']==0)) {?>
+	
+	<script>
+
+$(document).ready(function() {
+    $('#modelo').modal('show');
+})
+</script>		
+	
+		
+<!-- Modal -->
+<div class="modal fade" id="modelo" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TituloModalCentralizado">Mensagem</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-danger">
+      Erro ao armazenar dados.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+<?php }?>
+ <!-- Page Content -->
+ <div class="container"><br>
+	<div class="card border-Light">
+	  <div class="card-header text-white bg-info ">Cadastrar Computador</div>
+	  <div class="card-body">
+	  <form id="computador-form" action="computador-editar-form.php?editar-computador=<?=$computador->id?>" method="post">
+			<div class="row">
+				<div class="col">
+					<label for="Modelo"><h6>Modelo</h6></label>
+					<input type="text" name="campo_modelo" id="modelo" value="<?php echo $computador->modelo?>" class="form-control">
+					</br>
+				</div>	
+				<div class="col">	
+					<label for="Fabricante"><h6>Fabricante</h6></label>
+					<input type="text" name="campo_fabricante" class="form-control" value="<?php echo $computador->fabricante?>">
+					</br>
+				</div>
+			</div>	
+			<div class="row">
+				<div class="col">
+					<label for="Memoria"><h6>Memória</h6></label>
+					<input type="text" name="campo_memoria" class="form-control" value="<?php echo $computador->memoria?>">
+				</br>
+				</div>	
+				<div class="col">	
+					<label for="Processador"><h6>Processador</h6></label>
+					<input type="text" name="campo_processador" class="form-control" value="<?php echo $computador->processador?>">
+				</br>
+				</div>
+			</div>	
+			<div class="row">
+				<div class="col">
+					<label for="Armazenamento"><h6>Armazenamento</h6></label>
+					<input type="text" name="campo_armazenamento"  class="form-control" value="<?php echo $computador->armazenamento?>">
+				</br>
+				</div>	
+				<div class="col">	
+					<label for="Tela"><h6>Tela</h6></label>
+					<input type="text" name="campo_tela"  class="form-control" value="<?php echo $computador->tela?>">
+				</br>
+				</div>
+			</div>	
+			<div class="form-group">	
+				<label for="Sistema"><h6>Sistema</h6></label>
+                <input type="text" name="campo_sistema"  class="form-control" value="<?php echo $computador->sistema?>">
+				</br>
+				<label for="Valor"><h6>Valor</h6></label>
+                <input type="number" name="campo_valor" step="any" class="form-control" value="<?php echo $computador->valor?>">
+				</br>
+				
+				<input type="submit" class="btn btn-info" value="Salvar">
+			</div>
+		</form>	
+	  </div>
+	</div>
+</div>
+</br>
+
+ <!-- Footer -->
+  <footer class="py-5 fixed-bottom" style="background-color: #4361ee;">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Mega Hardware 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  
+  
+  
+
+</body>
+
+</html>
